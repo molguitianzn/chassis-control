@@ -1,0 +1,32 @@
+<launch>
+    
+    <!-- begin robot1 -->
+    <group ns="robot1">
+        <param name="robot_description" command="$(find xacro)/xacro '$(find robot_and_world)/urdf/chassis_robot.xacro' robot_name:=robot1" />
+        <param name="tf_prefix" value="robot1"/>
+        <include file="$(find robot_and_world)/launch/robot/one_robot.launch">
+            <arg name="init_pose" value="-x -49 -y -22 -z 0 -Y 1.57"/>
+            <arg name="robot_name" value="robot1"/>
+        </include>
+    </group>
+
+    <!-- begin robot2 -->
+    <group ns="robot2">
+        <param name="robot_description" command="$(find xacro)/xacro '$(find robot_and_world)/urdf/chassis_robot.xacro' robot_name:=robot2" />
+        <param name="tf_prefix" value="robot2"/>
+        <include file="$(find robot_and_world)/launch/robot/one_robot.launch">
+            <arg name="init_pose" value="-x -46 -y -22 -z 0 -Y 1.57"/>
+            <arg name="robot_name" value="robot2"/>
+        </include>
+    </group>
+
+    <!-- begin robot3 -->
+    <group ns="robot3">
+        <param name="robot_description" command="$(find xacro)/xacro '$(find robot_and_world)/urdf/chassis_robot.xacro' robot_name:=robot3" />
+        <param name="tf_prefix" value="robot3"/>
+        <include file="$(find robot_and_world)/launch/robot/one_robot.launch">
+            <arg name="init_pose" value="-x -49 -y -24 -z 0 -Y 1.57"/>
+            <arg name="robot_name" value="robot3"/>
+        </include>
+    </group>
+</launch>

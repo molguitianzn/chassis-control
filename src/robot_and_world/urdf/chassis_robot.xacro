@@ -1,0 +1,10 @@
+<robot name="chassis_robot" xmlns:xacro="http://wiki.ros.org/xacro">
+    <xacro:arg name="robot_name" default="/"/>
+    <xacro:include filename="description/inertials.xacro"/>
+    <xacro:include filename="description/base_model.xacro" />
+    <xacro:include filename="description/camera_model.xacro" />
+    <xacro:include filename="description/lidar_model.xacro" />
+    <xacro:include filename="description/base_gazebo.xacro" />
+    <xacro:include filename="description/lidar_gazebo.xacro"/> 
+    <xacro:include filename="description/camera_gazebo.xacro"/>
+</robot>
