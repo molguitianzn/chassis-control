@@ -3,7 +3,7 @@ This repository contains a Gazebo simulation model of shooting range world and a
 
 ## dependences and enviroment
 ubuntu 18.04 with ros melodic
-Before you launch the simulation, you should download some basic gazebo models in [here](https://github.com/osrf/gazebo_models).
+Before you launch the simulation, you should download some basic gazebo models [here](https://github.com/osrf/gazebo_models).
 ```bash
 cd ~/.gazebo/ # if you do not have the dir, create it firstly
 mkdir -p models
