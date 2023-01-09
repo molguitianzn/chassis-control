@@ -15,13 +15,13 @@ git clone https://github.com/osrf/gazebo_models.git
 create your working directory and download the code
 ```bash
 cd ~/yourworkingdir/
-mkdir chassis_gazebo_ws && cd chassis_gazebo_ws
 git clone https://github.com/molguitianzn/chassis-control.git
+cd chassis-control
 catkin_make
 ```
 launch the simulation
 ```bash
-cd ~/yourworkingdir/chassis_gazebo_ws
+cd ~/yourworkingdir/chassis-control
 source devel/setup.bash
 roslaunch robot_and_world robots_world.launch
 ```
