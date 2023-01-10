@@ -34,4 +34,8 @@ Move the robot to finish the mapping task.
 rosrun teleop_twist_keyboard teleop_twist_keyboard.py /cmd_vel:=/robot1/cmd_vel
 ```
 Robot1 is used to create the map as default. However, you can modify the "robot_frame_prefix" argument field in [launch_gmapping.launch](robot_localization/launch/launch_gmapping.launch) with any robot you want.
+To save the map, run the following line of code.
+```bash
+roslaunch robot_localization save_map.launch
+```
 I have created a map in [robot_localization/map/shooting_range_map1.yaml](robot_localization/map/shooting_range_map1.yaml)
