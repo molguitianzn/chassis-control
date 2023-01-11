@@ -2,5 +2,5 @@
     <param name="/use_sim_time" value="true" />
     <include file="$(find robot_and_world)/launch/world/world.launch"/>
     <include file="$(find robot_and_world)/launch/robot/robots.launch"/>
-    <node pkg="rviz" type="rviz" name="robot1_rviz" args="-d $(find robot_and_world)/rviz/robot1_world.rviz"/>
+    <!-- <node pkg="rviz" type="rviz" name="robot1_rviz" args="-d $(find robot_and_world)/rviz/robot1_world.rviz"/> -->
 </launch>
