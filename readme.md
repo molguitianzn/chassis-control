@@ -47,7 +47,7 @@ roslaunch robot_localization launch_amcl.launch
 ```
 #### set initial pose
 To set the initial pose of each robot in rviz, I make a [ros node](./src/robot_localization/src/set_estimate_pose.cpp) called "set_pose_estimate" which subscribes the "/initialpose" topic publishd by rviz, then publish the message to each AMCL nodes for the  robots in order. [launch_amcl.launch](./src/robot_localization/launch/launch_amcl.launch#L13) has included the "set_estimate_pose" node. Thus when you launch [launch_amcl.launch](./src/robot_localization/launch/launch_amcl.launch), you should set the initial robot pose for each robot with "2D Pose Estimate" tool in rviz orderly, like this:
-![set initial pose](./docs/setInitialPose.webm)
+![set initial pose](./docs/setInitialPose.gif)
 #### Attentions
 1. If you construct the map yourself, remember to modify the map file name in "map" field of [launch_amcl.launch](./src/robot_localization/launch/launch_amcl.launch#L2).
 2. If you have added new robots, remember to add some code blocks in [launch_amcl.launch](./src/robot_localization/launch/launch_amcl.launch) as follow to localize these new robots.
