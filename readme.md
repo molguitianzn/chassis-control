@@ -33,7 +33,7 @@ Move the robot to finish the mapping task.
 ```bash
 rosrun teleop_twist_keyboard teleop_twist_keyboard.py /cmd_vel:=/robot1/cmd_vel
 ```
-Robot1 is used to create the map as default. However, you can modify the "robot_frame_prefix" argument field in [launch_gmapping.launch](./src/robot_localization/launch/launch_gmapping.launch) with any robot you want.
+Robot1 is used to create the map as default. However, you can modify the ```robot_frame_prefix``` argument field in [launch_gmapping.launch](./src/robot_localization/launch/launch_gmapping.launch) with any robot you want.
 To save the map, run the following line of code.
 ```bash
 roslaunch robot_localization save_map.launch
@@ -46,14 +46,36 @@ The robots are equiped with a single-ray lidar, thus I choose AMCL to localize t
 roslaunch robot_localization launch_amcl.launch
 ```
 #### set initial pose
-To set the initial pose of each robot in rviz, I make a [ros node](./src/robot_localization/src/set_estimate_pose.cpp) called "set_pose_estimate" which subscribes the "/initialpose" topic publishd by rviz, then publish the message to each AMCL nodes for the  robots in order. [launch_amcl.launch](./src/robot_localization/launch/launch_amcl.launch#L13) has included the "set_estimate_pose" node. Thus when you launch [launch_amcl.launch](./src/robot_localization/launch/launch_amcl.launch), you should set the initial robot pose for each robot with "2D Pose Estimate" tool in rviz orderly, like this:
+To set the initial pose of each robot in rviz, I make a [ros node](./src/robot_localization/src/set_estimate_pose.cpp) called ```set_pose_estimate``` which subscribes the ```/initialpose``` topic publishd by rviz, then publish the message to each AMCL nodes for the  robots in order. [launch_amcl.launch](./src/robot_localization/launch/launch_amcl.launch#L13) has included the ```set_estimate_pose``` node. Thus when you launch [launch_amcl.launch](./src/robot_localization/launch/launch_amcl.launch), you should set the initial robot pose for each robot with "2D Pose Estimate" tool in rviz orderly, like this:
 ![set initial pose](./docs/setInitialPose.gif)
 #### Attentions
-1. If you construct the map yourself, remember to modify the map file name in "map" field of [launch_amcl.launch](./src/robot_localization/launch/launch_amcl.launch#L2).
+1. If you construct the map yourself, remember to modify the map file name in ```map``` field of [launch_amcl.launch](./src/robot_localization/launch/launch_amcl.launch#L2).
 2. If you have added new robots, remember to add some code blocks in [launch_amcl.launch](./src/robot_localization/launch/launch_amcl.launch) as follow to localize these new robots.
-```bash
+```xml
 <include file="$(find robot_localization)/launch/node_amcl.launch">
         <arg name="robot_frame_prefix" value="robotx"/>
 </include>
 ```
-x in value "robotx" is the index of the robot. Then you should also modify the number in "args" field of [this line](./src/robot_localization/launch/launch_amcl.launch#L13).
+x in value ```robotx``` is the index of the robot. Then you should also modify the number in ```args``` field of [this line](./src/robot_localization/launch/launch_amcl.launch#L13).
+
+### Path planning with movebase
+Multi-robot path planning was supported in ```launch_movebase.launch``` file, included in ```robot_localization``` package. After map of the environment has been created, launch the file to plan the path for each robot.
+```bash
+roslaunch robot_localization launch_movebase.launch
+```
+Then you should set initial pose for each robot respectively, like [this](./readme.md#L48).
+#### set navigation goal
+To set navigation goal for each robot, I also make a ```set_nav_goal``` [node](./src/robot_localization/src/set_nav_goal.cpp) which subscribe the ```/move_base_simple/goal``` topic published by rviz, then publish the message to movebase nodes for each robots orderly. The ```set_nav_goal```node is included in ```launch_movebase.launch``` file, which means you can set the navigation goal for each robots with ```2D Nav Goal``` tool in rviz orderly, like this:
+![set navigation goal](./docs/setNavGoal.gif)
+If you add new robots, just add some code blocks in launch_movebase.launch as follow to navigate these new robots.
+```xml
+<include file="$(find robot_localization)/launch/node_amcl.launch">
+<arg name="robot_frame_prefix" value="robot3"/>
+</include>
+<group ns="robot3">
+<include file="$(find robot_localization)/launch/node_movebase.launch">
+        <arg name="robot_frame_prefix" value="robot3"/>
+</include>
+</group>
+```
+Then modify the number in ```args``` field of [this line](./src/robot_localization/launch/launch_movebase.launch#L32) and [this line](./src/robot_localization/launch/launch_movebase.launch#L33)

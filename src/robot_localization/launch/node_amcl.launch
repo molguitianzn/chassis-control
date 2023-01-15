@@ -5,6 +5,7 @@
         <remap from="/initialpose" to="/$(arg robot_frame_prefix)/initialpose"/>
         <remap from="/amcl_pose" to="/$(arg robot_frame_prefix)/amcl_pose"/>
         <remap from="/particlecloud" to="/$(arg robot_frame_prefix)/particlecloud"/>
+        <remap from="/map" to="/map"/>
         <!-- Publish scans from best pose at a max of 10 Hz -->
         <param name="odom_model_type" value="diff"/>
         <param name="odom_alpha5" value="0.1"/>
@@ -35,7 +36,8 @@
         
         <param name="odom_frame_id" value="/$(arg robot_frame_prefix)/odom"/>
         <param name="base_frame_id" value="/$(arg robot_frame_prefix)/base_footprint"/>
-        <param name="global_frame_id" value="map"/>
+        <!-- <param name="global_frame_id" value="$(arg robot_frame_prefix)/map"/> -->
+        <param name="global_frame_id" value="/map"/>
         
         <param name="resample_interval" value="1"/>
         <param name="transform_tolerance" value="0.1"/>
